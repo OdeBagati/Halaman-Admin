@@ -42,7 +42,7 @@ $routes->get('/register', 'Home::register');
 // Transaksi
 $routes->get('/transaksi', 'Transaksi::index');
 
-$routes->get('/getData', 'Api::getData');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
