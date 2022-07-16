@@ -25,24 +25,14 @@
                         <th>Status</th>
                     </tr>
                 </thead>
-                <!-- <tfoot>
-                    <tr>
-                        <th>Tgl. Transaksi</th>
-                        <th>Biller</th>
-                        <th>TrxID</th>
-                        <th>BillID</th>
-                        <th>Total Bayar</th>
-                        <th>Detail</th>
-                        <th>Status</th>
-                    </tr>
-                </tfoot> -->
                 <tbody>
+                    <?php foreach($response as $key => $transaksi) : ?>
                     <tr>
-                        <td>22/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.8000</td>
+                        <td><?= $transaksi->date_created; ?></td>
+                        <td><?= $transaksi->username; ?></td>
+                        <td><?= $transaksi->id; ?></td>
+                        <td>(coming soon)</td>
+                        <td>Rp. <?= $transaksi->price; ?></td>
                         <td>
                             <div class="row">
                                 <div class="col-12">
@@ -51,94 +41,16 @@
                             </div>
                         </td>
                         <td>
-                            <span class="badge badge-success">Success</span>
+                            <?php if($transaksi->status =='requested') : ?>
+                                <span class="badge badge-warning"><?= $transaksi->status ?></span>
+                            <?php elseif($transaksi->status =='success') : ?>
+                                <span class="badge badge-primary"><?= $transaksi->status ?></span>
+                            <?php else : ?>
+                                <span class="badge badge-danger"><?= $transaksi->status ?></span>
+                            <?php endif; ?>
                         </td>
                     </tr>
-                    <tr>
-                        <td>23/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.800</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-warning">Pending</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>24/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.800</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-danger">Error</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>25/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.800</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-success">Success</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>26/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.800</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-warning">Pending</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>27/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.800</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-danger">Error</span>
-                        </td>
-                    </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
