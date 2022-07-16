@@ -21,7 +21,7 @@
 
     <!-- Nav Item - Tabel Transaksi -->
     <li class="nav-item">
-        <a class="nav-link" href="/getData">
+        <a class="nav-link" href="/transaksi">
             <i class="fas fa-fw fa-table"></i>
             <span>Tabel Transaksi</span>
         </a>
