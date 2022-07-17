@@ -26,13 +26,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($response as $key => $transaksi) : ?>
                     <tr>
-                        <td><?= $transaksi->date_created; ?></td>
-                        <td><?= $transaksi->username; ?></td>
-                        <td><?= $transaksi->id; ?></td>
-                        <td>(coming soon)</td>
-                        <td>Rp. <?= $transaksi->price; ?></td>
+                        <td>20/06/2022</td>
+                        <td>PT. Mencari Cinta Sejati</td>
+                        <td>69420</td>
+                        <td>12345</td>
+                        <td>Rp. 69.000</td>
                         <td>
                             <div class="row">
                                 <div class="col-12">
@@ -41,19 +40,18 @@
                             </div>
                         </td>
                         <td>
-                            <?php if($transaksi->status =='requested') : ?>
-                                <span class="badge badge-warning"><?= $transaksi->status ?></span>
-                            <?php elseif($transaksi->status =='success') : ?>
-                                <span class="badge badge-primary"><?= $transaksi->status ?></span>
-                            <?php else : ?>
-                                <span class="badge badge-danger"><?= $transaksi->status ?></span>
-                            <?php endif; ?>
+                            <span class="badge badge-success">Sukses</span>
                         </td>
                     </tr>
-                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
 <?= $this->endSection(); ?>
