@@ -1,3 +1,4 @@
+
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -21,7 +22,7 @@
 
     <!-- Nav Item - Tabel Transaksi -->
     <li class="nav-item">
-        <a class="nav-link" href="/getData">
+        <a class="nav-link" href="/transaksi">
             <i class="fas fa-fw fa-table"></i>
             <span>Tabel Transaksi</span>
         </a>
@@ -116,5 +117,4 @@
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
 </ul>

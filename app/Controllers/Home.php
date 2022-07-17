@@ -6,17 +6,10 @@ class Home extends BaseController
 {
     public function index()
     {
-        return view('welcome_message');
-    }
+        $data['page']  = 'test_table';
+        $data['title']  = 'Halaman Transaksi';
 
-    public function login()
-    {
-        return view('login/login');
-    }
-
-    public function register()
-    {
-        return view('login/register');
+        return view('admin',$data);
     }
 
     public function test()
