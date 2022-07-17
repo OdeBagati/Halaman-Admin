@@ -38,11 +38,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-<<<<<<< HEAD
-                <div class="sidebar-brand-text mx-3">Admin Dashboard</div>
-=======
                 <div class="sidebar-brand-text mx-3">Admin Website</div>
->>>>>>> b602367239ff619e6e1c5c41ba1080a108b7fc96
             </a>
 
             <!-- Divider -->

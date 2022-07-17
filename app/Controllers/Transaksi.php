@@ -6,12 +6,6 @@ class Transaksi extends BaseController
 {
     public function index()
     {
-<<<<<<< HEAD
-        $data['page']  = 'test_table';
-        $data['title']  = 'Halaman Transaksi';
-
-        return view('admin',$data);
-=======
         $url = 'http://128.199.131.109:3000/api/userdata/transaction_history';
         $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhejQ3Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE2NTgwNTAzMTl9.a6KnaDbuy5qlLFWkK8EkwfzrBo7Zir5Ycw4SaPJrMwA';
         $options = array('http' => array(
@@ -91,6 +85,5 @@ class Transaksi extends BaseController
                 'status' => 'gagal'
             ]
         );
->>>>>>> b602367239ff619e6e1c5c41ba1080a108b7fc96
     }
 }
