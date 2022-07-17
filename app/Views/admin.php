@@ -1,0 +1,3 @@
+
+
+<?= view('pages/'.$page); ?>
