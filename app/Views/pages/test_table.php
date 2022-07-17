@@ -1,5 +1,3 @@
-<?= $this->extend('layout/index'); ?>
-<?= $this->section('content'); ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -82,5 +80,4 @@
 
 </div>
 <!-- /.container-fluid -->
-<?= $this->endSection(); ?>
 
