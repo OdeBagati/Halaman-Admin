@@ -8,8 +8,18 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
-                <div class="col-6 text-left">
+                <div class="col-2 text-left">
                     <a class="btn btn-primary" href="#"><i class="fa fa-refresh"></i>&nbsp;Rekonsiliasi</a>
+                </div>
+                <div class="col-4 text-left">
+                    <select class="form-control">
+                        <option selected="selected" disabled>Download for</option>
+                        <option value="1">one month</option>
+                        <option value="2">one day</option>
+                    </select>
+                </div>
+                <div class="col-2">
+                    <a href="#" class="btn btn-primary">Download</a>
                 </div>
             </div>
         </div>
@@ -25,6 +35,7 @@
                             <th>Total Bayar</th>
                             <th>Detail</th>
                             <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -36,43 +47,38 @@
                             <th>Total Bayar</th>
                             <th>Detail</th>
                             <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </tfoot>
                     <tbody>
+                        <?php foreach($response as $key => $transaksi) : ?>
                         <tr>
-                            <td>20/06/2022</td>
-                            <td>PT. Mencari Cinta Sejati</td>
-                            <td>69420</td>
-                            <td>12345</td>
-                            <td>Rp. 69.000</td>
+                            <td><?= $transaksi->ts; ?></td>
+                            <td><?= $transaksi->trx_type; ?></td>
+                            <td><?= $transaksi->trx_id; ?></td>
+                            <td><?= $transaksi->product_code; ?></td>
+                            <td>Rp. <?= $transaksi->amount; ?></td>
                             <td>
                                 <div class="row">
                                     <div class="col-12">
-                                        <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
+                                        <a class="btn btn-info btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <span class="badge badge-success">Sukses</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>20/06/2022</td>
-                            <td>PT. Mencari Jodoh Sejati</td>
-                            <td>69420</td>
-                            <td>12345</td>
-                            <td>Rp. 69.000</td>
-                            <td>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
-                                    </div>
-                                </div>
+                                <?php if($transaksi->status == 'failed') : ?>
+                                <span class="badge badge-danger"><?= $transaksi->status; ?></span>
+                                <?php elseif($transaksi->status == 'advice' || $transaksi->status == 'rekonsiliasi') : ?>
+                                <span class="badge badge-warning"><?= $transaksi->status; ?></span>
+                                <?php else : ?>
+                                <span class="badge badge-success"><?= $transaksi->status; ?></span>
+                                <?php endif; ?>
                             </td>
                             <td>
-                                <span class="badge badge-success">Sukses</span>
+                                <a class="btn btn-primary" href="#">Download</a>
                             </td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
