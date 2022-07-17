@@ -1,20 +1,22 @@
-<?= $this->extend('layout/index'); ?>
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-<?= $this->section('content'); ?>
-<div class="row">
-    <div class="col-12 mb-3">
-        <a href="#" class="btn btn-primary"><i class="fas fa-fw fa-download"></i> Rekonsiliasi</a>
-    </div>
-</div>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
 
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <a class="btn btn-primary" href="#"><i class="fa fa-refresh"></i>&nbsp;Rekonsiliasi</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
                         <tr>
                             <th>Tgl. Transaksi</th>
                             <th>Biller</th>
@@ -36,7 +38,7 @@
                             <th>Status</th>
                         </tr>
                     </tfoot>
-                <tbody>
+                    <tbody>
                         <tr>
                             <td>20/06/2022</td>
                             <td>PT. Mencari Cinta Sejati</td>
@@ -72,14 +74,11 @@
                             </td>
                         </tr>
                     </tbody>
-            </table>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#dataTable').DataTable();
-    });
-</script>
-<?= $this->endSection(); ?>
+</div>
+<!-- /.container-fluid -->
+
