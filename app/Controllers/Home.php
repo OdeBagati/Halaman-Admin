@@ -9,17 +9,17 @@ class Home extends BaseController
         return view('welcome_message');
     }
 
-    public function login()
+    function login()
     {
         return view('login/login');
     }
 
-    public function register()
+    function register()
     {
         return view('login/register');
     }
 
-    public function test()
+    function test()
     {
         return view('layout/index');
     }
