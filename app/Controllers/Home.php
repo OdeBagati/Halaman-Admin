@@ -12,16 +12,6 @@ class Home extends BaseController
         return view('admin',$data);
     }
 
-    public function login()
-    {
-        return view('login/login');
-    }
-
-    public function register()
-    {
-        return view('login/register');
-    }
-
     public function test()
     {
         return view('layout/index');

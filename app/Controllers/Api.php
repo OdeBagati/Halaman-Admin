@@ -25,4 +25,4 @@ class Api extends BaseController
 
 		// return view('transaksi/index', $data);
 	}
-}
+} 
