@@ -6,17 +6,14 @@ class Transaksi extends BaseController
 {
     public function index()
     {
-        if(!isset($_COOKIE['login']))
-        {
+        if (!isset($_COOKIE['login'])) {
             return redirect()->to('login');
-        }
-        else
-        {
+        } else {
             $url = 'http://128.199.131.109:3000/api/userdata/transaction_history';
             $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhejQ3Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE2NTgwNTAzMTl9.a6KnaDbuy5qlLFWkK8EkwfzrBo7Zir5Ycw4SaPJrMwA';
             $options = array('http' => array(
                 'method'  => 'GET',
-                'header' => 'Authorization: Bearer '.$token
+                'header' => 'Authorization: Bearer ' . $token
             ));
             $context  = stream_context_create($options);
             $data['title'] = 'transaksi';
@@ -27,10 +24,10 @@ class Transaksi extends BaseController
 
             // dd($data['response']);
 
-            return view('admin',$data);
+            return view('admin', $data);
         }
 
-        
+
 
         // foreach ($data['response'] as $key => $value) {
         //     echo $value->ts;
