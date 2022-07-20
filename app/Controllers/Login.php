@@ -3,6 +3,11 @@
 namespace App\Controllers;
 
 use stdClass;
+use CodeIgniter\Cookie\Cookie;
+use DateTime;
+use Kint\Zval\Value;
+
+use function PHPUnit\Framework\isNull;
 
 class Login extends BaseController
 {
@@ -19,46 +24,61 @@ class Login extends BaseController
     public function loginAuth()
     {
         // API login disini
-        $url = 'http://128.199.131.109:3000/api/user/login';
-
-        // $ch = curl_init($url);
-        // # Setup request to send json via POST.
-        // $payload = json_encode(array("cust_id" => "546500120910"));
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-        // # Return response instead of printing.
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // # Send request.
-        // $result = curl_exec($ch);
-        // curl_close($ch);
-
-        // dd($result);
-
+        $url = 'http://128.199.78.209:3000/api/user/login';
 
         $kelas = new stdClass();
-        $kelas->username = "aaz47";
-        $kelas->password = "contohdoang";
-        // dd(json_decode('{"cust_id": "546500120910"}'));
+        $kelas->username = $this->request->getVar('username');
+        $kelas->password = $this->request->getVar('password');
 
-        $postdata = ["cust_id" => "546500120910"];
-        $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhejQ3Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE2NTc5NzMzNTh9.K1Zgec8GHp_R0p_kELdLf_wDCbUaolsJuIVH_yKZJEQ";
-        $options = array('http' => array(
-            'method'  => 'POST',
-            'header' => array(
-                "User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10",
-                "Authorization: Bearer " . $token,
-                "Content-type: application/json",
-            ),
-            'content' => json_encode($kelas)
-        ));
-        $context  = stream_context_create($options);
+        if($kelas->username!='aaz47' && $kelas->password!='contohdoang')
+        {
+            $this->session->setFlashData('error','invalid username or password');
 
-        $ingfo = file_get_contents($url, false, $context);
+            return view('login/login');
+        }
+        else
+        {
+            $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhejQ3Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE2NTc5NzMzNTh9.K1Zgec8GHp_R0p_kELdLf_wDCbUaolsJuIVH_yKZJEQ";
+            $options = array('http' => array(
+                'method'  => 'POST',
+                'header' => array(
+                    "User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10",
+                    "Content-type: application/json",
+                ),
+                'content' => json_encode($kelas)
+            ));
+            $context  = stream_context_create($options);
 
-        helper('cookie');
-        $this->response->setCookie('login', $ingfo, 3600,"/");
+            // dd(file_get_contents($url, false, $context));
+            $ingfo = file_get_contents($url, false, $context);
 
-        echo $this->response->getCookie('login');
+            // helper('cookie');
+            $cookie = new Cookie(
+                'login',
+                $ingfo,
+                [
+                    'expires'  => new DateTime('+2 hours'),
+                    'prefix'   => '',
+                    'path'     => '/',
+                    'domain'   => '',
+                    'secure'   => false,
+                    'httponly' => false,
+                    'raw'      => false,
+                    'samesite' => Cookie::SAMESITE_LAX,
+                ]
+            );
+            $this->response->setCookie($cookie);
+
+            $cookieData = $this->response->getCookie('login');
+            // dd($cookieData->getValue());
+            // echo $cookieData->getValue() == null;
+            if ($cookieData->getValue() != null) {
+                return redirect()->setCookie($cookie)->to(base_url('/'));
+            } else {
+                // return redirect()->to(base_url('/'));
+                return redirect()->to('login');
+            }
+        }
 
 
         // if(is_null($this->response->getCookie('login')))
