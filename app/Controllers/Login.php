@@ -67,12 +67,13 @@ class Login extends BaseController
                     'samesite' => Cookie::SAMESITE_LAX,
                 ]
             );
-            $this->response->setCookie($cookie);
+            $this->response->setCookie('login',$cookie);
 
             $cookieData = $this->response->getCookie('login');
             // dd($cookieData->getValue());
             // echo $cookieData->getValue() == null;
             if ($cookieData->getValue() != null) {
+                $this->session->set('lomgin',$cookieData->getValue());
                 return redirect()->setCookie($cookie)->to(base_url('/'));
             } else {
                 // return redirect()->to(base_url('/'));
