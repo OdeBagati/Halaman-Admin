@@ -6,9 +6,10 @@ class Transaksi extends BaseController
 {
     public function index()
     {
-        if (!isset($_COOKIE['login'])) {
-            return redirect()->to('login');
-        } else {
+        $lomgin=$this->session->get('lomgin');
+
+        if($lomgin != null)
+        {
             $url = 'http://128.199.131.109:3000/api/userdata/transaction_history';
             $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhejQ3Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE2NTgwNTAzMTl9.a6KnaDbuy5qlLFWkK8EkwfzrBo7Zir5Ycw4SaPJrMwA';
             $options = array('http' => array(
@@ -26,17 +27,15 @@ class Transaksi extends BaseController
 
             return view('admin', $data);
         }
+        else
+        {
+            return redirect()->to('login');
+        }
+    }
 
-
-
-        // foreach ($data['response'] as $key => $value) {
-        //     echo $value->ts;
-        //     echo $value->trx_type;
-        //     echo $value->trx_id;
-        //     echo $value->product_code;
-        //     echo $value->amount;
-        //     echo $value->status;
-        // }
+    function delete()
+    {
+        $this->session->remove('lomgin');
     }
 
     function dumy()

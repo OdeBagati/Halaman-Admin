@@ -40,6 +40,7 @@ $routes->get('/', 'Dashboard::index');
 $routes->get('/register', 'Register::register');
 
 // Transaksi
+$routes->get('/delSession', 'Transaksi::delete');
 $routes->get('/transaksi', 'Transaksi::index');
 
 // Login
