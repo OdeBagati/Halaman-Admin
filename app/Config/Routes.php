@@ -42,6 +42,7 @@ $routes->get('/register', 'Register::register');
 // Transaksi
 $routes->get('/delSession', 'Transaksi::delete');
 $routes->get('/transaksi', 'Transaksi::index');
+$routes->post('/transaksi/download', 'Transaksi::download');
 
 // Login
 $routes->get('/login', 'Login::login');
