@@ -11,31 +11,18 @@ class Api extends BaseController
 
 	function getData()
 	{
-		// $data = [
-		// 	'url' => 'http://128.199.131.109:3000/api/userdata/transaction_history',
-		// 	'token' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhejQ3IiwiaWF0IjoxNjUyMTcwNjIyfQ.lpgf2og1fKhQrbSbvwFoAP2KX7p-swTi76FMhX1Z56w',
-		// 	'options' => array('http' => array(
-		//     	'method'  => 'GET',
-		//     	'header' => 'Authorization: Bearer '.'token'
-		// 	)),
-		// 	'context' => stream_context_create('options'),
-		// 	'response' => json_decode(file_get_contents('url', false, 'context')),
-		// 	'title' => 'transaksi'
-		// ];
-
-		// return view('transaksi/index', $data);
-		$url = 'http://128.199.131.109:3000/api/userdata/transaction_history';
-		$token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhejQ3IiwiaWF0IjoxNjUyMTcwNjIyfQ.lpgf2og1fKhQrbSbvwFoAP2KX7p-swTi76FMhX1Z56w';
+		$url = 'http://128.199.131.109:3000/api/user/login';
+		$token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhejQ3Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE2NTc5NzMzNTh9.K1Zgec8GHp_R0p_kELdLf_wDCbUaolsJuIVH_yKZJEQ';
 		$options = array('http' => array(
-		    'method'  => 'GET',
+		    'method'  => 'POST',
 		    'header' => 'Authorization: Bearer '.$token
 		));
 		$context  = stream_context_create($options);
 		$data['title'] = 'transaksi';
 		$data['response'] = json_decode(file_get_contents($url, false, $context));
 
-		// dd($data['response']);
+		dd($data['response']);
 
-		return view('transaksi/index', $data);
+		// return view('transaksi/index', $data);
 	}
-}
+} 

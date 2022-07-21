@@ -15,133 +15,71 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                    <tr>
-                        <th>Tgl. Transaksi</th>
-                        <th>Biller</th>
-                        <th>TrxID</th>
-                        <th>BillID</th>
-                        <th>Total Bayar</th>
-                        <th>Detail</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <!-- <tfoot>
-                    <tr>
-                        <th>Tgl. Transaksi</th>
-                        <th>Biller</th>
-                        <th>TrxID</th>
-                        <th>BillID</th>
-                        <th>Total Bayar</th>
-                        <th>Detail</th>
-                        <th>Status</th>
-                    </tr>
-                </tfoot> -->
+                        <tr>
+                            <th>Tgl. Transaksi</th>
+                            <th>Biller</th>
+                            <th>TrxID</th>
+                            <th>BillID</th>
+                            <th>Total Bayar</th>
+                            <th>Detail</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Tgl. Transaksi</th>
+                            <th>Biller</th>
+                            <th>TrxID</th>
+                            <th>BillID</th>
+                            <th>Total Bayar</th>
+                            <th>Detail</th>
+                            <th>Status</th>
+                        </tr>
+                    </tfoot>
                 <tbody>
-                    <tr>
-                        <td>22/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.8000</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
+                        <tr>
+                            <td>20/06/2022</td>
+                            <td>PT. Mencari Cinta Sejati</td>
+                            <td>69420</td>
+                            <td>12345</td>
+                            <td>Rp. 69.000</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-success">Success</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>23/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.800</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
+                            </td>
+                            <td>
+                                <span class="badge badge-success">Sukses</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>20/06/2022</td>
+                            <td>PT. Mencari Jodoh Sejati</td>
+                            <td>69420</td>
+                            <td>12345</td>
+                            <td>Rp. 69.000</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-warning">Pending</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>24/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.800</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-danger">Error</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>25/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.800</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-success">Success</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>26/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.800</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-warning">Pending</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>27/10/2020</td>
-                        <td>PBB Tebingtinggi</td>
-                        <td>112233</td>
-                        <td>12345678</td>
-                        <td>Rp. 22.800</td>
-                        <td>
-                            <div class="row">
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-danger">Error</span>
-                        </td>
-                    </tr>
-                </tbody>
+                            </td>
+                            <td>
+                                <span class="badge badge-success">Sukses</span>
+                            </td>
+                        </tr>
+                    </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
 <?= $this->endSection(); ?>
