@@ -10,16 +10,17 @@
                 <div class="col-2 text-left">
                     <a class="btn btn-primary" href="#"><i class="fa fa-refresh"></i>&nbsp;Rekonsiliasi</a>
                 </div>
-                <div class="col-4 text-left">
-                    <select class="form-control">
-                        <option selected="selected" disabled>Download for</option>
-                        <option value="1">one month</option>
-                        <option value="2">one day</option>
-                    </select>
-                </div>
-                <div class="col-2">
-                    <a href="#" class="btn btn-primary">Download</a>
-                </div>
+                <form action="<?= base_url(); ?>/transaksi/download" method="post">
+                    <div class="col-4 text-left">
+                        <select class="form-control custom-select">
+                            <option selected="selected" disabled>Download for</option>
+                            <option value="1">one month</option>
+                            <option value="2">one day</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Download</button>
+                    </div>
+                </form>
+
             </div>
         </div>
         <div class="card-body">
@@ -50,33 +51,33 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach($response as $key => $transaksi) : ?>
-                        <tr>
-                            <td><?= $transaksi->ts; ?></td>
-                            <td><?= $transaksi->trx_type; ?></td>
-                            <td><?= $transaksi->trx_id; ?></td>
-                            <td><?= $transaksi->product_code; ?></td>
-                            <td>Rp. <?= $transaksi->amount; ?></td>
-                            <td>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <a class="btn btn-info btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
+                        <?php foreach ($response as $key => $transaksi) : ?>
+                            <tr>
+                                <td><?= $transaksi->ts; ?></td>
+                                <td><?= $transaksi->trx_type; ?></td>
+                                <td><?= $transaksi->trx_id; ?></td>
+                                <td><?= $transaksi->product_code; ?></td>
+                                <td>Rp. <?= $transaksi->amount; ?></td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a class="btn btn-info btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <?php if($transaksi->status == 'failed') : ?>
-                                <span class="badge badge-danger"><?= $transaksi->status; ?></span>
-                                <?php elseif($transaksi->status == 'advice' || $transaksi->status == 'rekonsiliasi') : ?>
-                                <span class="badge badge-warning"><?= $transaksi->status; ?></span>
-                                <?php else : ?>
-                                <span class="badge badge-success"><?= $transaksi->status; ?></span>
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <a class="btn btn-primary" href="#">Download</a>
-                            </td>
-                        </tr>
+                                </td>
+                                <td>
+                                    <?php if ($transaksi->status == 'rejected') : ?>
+                                        <span class="badge badge-danger"><?= $transaksi->status; ?></span>
+                                    <?php elseif ($transaksi->status == 'unpaid') : ?>
+                                        <span class="badge badge-warning"><?= $transaksi->status; ?></span>
+                                    <?php else : ?>
+                                        <span class="badge badge-success"><?= $transaksi->status; ?></span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary" href="#">Download</a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -86,4 +87,3 @@
 
 </div>
 <!-- /.container-fluid -->
-
