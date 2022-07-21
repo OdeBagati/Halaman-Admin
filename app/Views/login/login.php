@@ -3,6 +3,10 @@
 
 <head>
 
+    <?php 
+        $this->session  = \Config\Services::session();
+    ?>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,6 +37,18 @@
                         <div class="row">
                             <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
                             <div class="col-lg-12">
+                                
+                                <?php if($this->session->getFlashData('error')) : ?>
+                                    <div class="container">
+                                        <div class="row text-center mt-3">
+                                            <div class="col-12">
+                                                <div class="alert alert-danger">
+                                                    <?= $this->session->getFlashData('error'); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Login</h1>
