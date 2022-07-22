@@ -42,7 +42,6 @@ class Login extends BaseController
             ));
             $context  = stream_context_create($options);
 
-            // dd(file_get_contents($url, false, $context));
             $ingfo = file_get_contents($url, false, $context);
 
             // helper('cookie');

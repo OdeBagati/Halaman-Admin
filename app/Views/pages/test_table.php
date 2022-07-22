@@ -15,6 +15,7 @@
                     <form action="<?= base_url('transaksi/download'); ?>" method="post">
                     <div class="row">
                         <div class="col-4">
+                            <?= csrf_field(); ?>
                             <select class="form-control custom-select">
                                 <option selected="selected" disabled>Download for</option>
                                 <option value="1">one month</option>
@@ -71,7 +72,7 @@
                                 <td>
                                     <div class="row">
                                         <div class="col-12">
-                                            <a class="btn btn-info btn-sm" href="#"><i class="fas fa-fw fa-eye"></i> Detail</a>
+                                            <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-fw fa-eye"></i> Detail</a>
                                         </div>
                                     </div>
                                 </td>
@@ -85,7 +86,16 @@
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" href="#">Download</a>
+                                <form action="changeStatus" id="ubahStatus" method="post" onchange="changeStatus()">
+                                    <?= csrf_field(); ?>
+                                    <input type="number" name="id" class="form-control" value="<?= $transaksi->trx_id; ?>">
+                                    <input type="number" name="amount" class="form-control" value="<?= $transaksi->amount; ?>">
+                                    <select class="form-control" name="status">
+                                        <option selected="selected" disabled>Select status</option>
+                                        <option value="accept">accept</option>
+                                        <option value="reject">reject</option>
+                                    </select>
+                                </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -94,6 +104,33 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script type="text/javascript">
+        function changeStatus()
+        {
+            $('form#ubahStatus').submit();
+        }
+    </script>
 
 </div>
 <!-- /.container-fluid -->
