@@ -27,12 +27,11 @@ class Login extends BaseController
         $kelas->username = $this->request->getVar('username');
         $kelas->password = $this->request->getVar('password');
 
-        if ($kelas->username != 'aaz47' && $kelas->password != 'contohdoang') {
+        if ($kelas->username != 'aaz47' || $kelas->password != 'contohdoang') {
             $this->session->setFlashData('error', 'invalid username or password');
 
             return view('login/login');
         } else {
-            $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhejQ3Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE2NTc5NzMzNTh9.K1Zgec8GHp_R0p_kELdLf_wDCbUaolsJuIVH_yKZJEQ";
             $options = array('http' => array(
                 'method'  => 'POST',
                 'header' => array(
@@ -43,7 +42,6 @@ class Login extends BaseController
             ));
             $context  = stream_context_create($options);
 
-            // dd(file_get_contents($url, false, $context));
             $ingfo = file_get_contents($url, false, $context);
 
             // helper('cookie');
@@ -65,7 +63,7 @@ class Login extends BaseController
 
             $cookieData = $this->response->getCookie('login');
             if ($cookieData->getValue() != null) {
-                $this->session->set('lomgin', $cookieData->getValue());
+                $this->session->set('lomgin', $cookie->getValue());
                 return redirect()->setCookie($cookie)->to(base_url('/'));
             } else {
                 return redirect()->to('login');
