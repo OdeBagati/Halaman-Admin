@@ -10,17 +10,27 @@
                 <div class="col-2 text-left">
                     <a class="btn btn-primary" href="#"><i class="fa fa-refresh"></i>&nbsp;Rekonsiliasi</a>
                 </div>
-                <form action="<?= base_url(); ?>/transaksi/download" method="post">
-                    <div class="col-4 text-left">
-                        <select class="form-control custom-select">
-                            <option selected="selected" disabled>Download for</option>
-                            <option value="1">one month</option>
-                            <option value="2">one day</option>
-                        </select>
-                        <button type="submit" class="btn btn-primary">Download</button>
+                
+                <div class="col-8">
+                    <form action="<?= base_url('transaksi/download'); ?>" method="post">
+                    <div class="row">
+                        <div class="col-4">
+                            <select class="form-control custom-select">
+                                <option selected="selected" disabled>Download for</option>
+                                <option value="1">one month</option>
+                                <option value="2">one day</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <input type="date" name="date" class="form-control">
+                        </div>
+                        <div class="col-2">
+                            <button type="submit" class="btn btn-primary">Download</button>
+                        </div>
                     </div>
-                </form>
-
+                    </form>
+                </div>
+                
             </div>
         </div>
         <div class="card-body">
