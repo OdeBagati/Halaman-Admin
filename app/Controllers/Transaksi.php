@@ -46,7 +46,7 @@ class Transaksi extends BaseController
 
         // dd($response);
 
-        $data = "";
+        $data = 'Tanggal Trx' . ' | ' . 'Trx Id' . ' | ' . "BillerId" . ' | ' . 'Biller' . ' | ' . 'Amount' . ' | ' . "\n";
         foreach ($response as $trx_list => $transaksi) {
             $data .=  $transaksi->ts . ' | ' . $transaksi->trx_id . ' | ' . $transaksi->product_code . ' | ' . $transaksi->trx_type . ' | ' . $transaksi->amount . ' | ' . "\n";
         }
