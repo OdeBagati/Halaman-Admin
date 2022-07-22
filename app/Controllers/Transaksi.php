@@ -44,11 +44,15 @@ class Transaksi extends BaseController
         $context  = stream_context_create($options);
         $response = json_decode(file_get_contents($url, false, $context));
 
-        // dd($response);
+        // print_r($response);
+        // $jsonData = json_decode($response[0]->data);
+        dd($response);
 
-        $data = 'Tanggal Trx' . ' | ' . 'Trx Id' . ' | ' . "BillerId" . ' | ' . 'Biller' . ' | ' . 'Amount' . ' | ' . "\n";
+        $data = 'Tanggal Trx' . ' | ' . 'Trx Id' . ' | ' . "BillerId" . ' | ' . 'Period' . ' | ' . 'Biller' . ' | ' . 'Amount' . ' | ' . 'Penalty' . ' | ' . 'Total Amount' . ' | ' . 'Fee' . ' | ' . 'Total Bayar' . ' | ' . "\n";
         foreach ($response as $trx_list => $transaksi) {
-            $data .=  $transaksi->ts . ' | ' . $transaksi->trx_id . ' | ' . $transaksi->product_code . ' | ' . $transaksi->trx_type . ' | ' . $transaksi->amount . ' | ' . "\n";
+            $jsonData = json_decode($transaksi->data);
+            // dd($jsonData->pricing->admin_fee);
+            $data .=  $transaksi->ts . ' | ' . $transaksi->trx_id . ' | ' . $transaksi->product_code . ' | ' . '    -   ' . ' | ' . $transaksi->trx_type . ' | ' . $jsonData->pricing->price . ' | ' . '    -   ' . ' | ' . $jsonData->pricing->price . ' | ' . '   -   ' . ' | ' . $transaksi->amount . ' | ' . "\n";
         }
 
         // $data = 'Here is some text!';
