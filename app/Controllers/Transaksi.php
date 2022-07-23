@@ -41,19 +41,17 @@ class Transaksi extends BaseController
     {
         $lomgin = $this->session->get('lomgin');
 
-        if($this->request->getMethod('post'))
-        {
+        if ($this->request->getMethod('post')) {
             $rules = [
                 'date' => [
                     'rules' => 'required',
-                    'errors'=> [
+                    'errors' => [
                         'required'  => 'Order date is required'
                     ]
                 ]
             ];
 
-            if($this->validate($rules))
-            {
+            if ($this->validate($rules)) {
                 $dateSelected = $this->request->getPost('date');
 
                 $url = 'http://128.199.78.209:3000/api/admin/transaction_date_no_paging/' . $dateSelected;
@@ -78,31 +76,29 @@ class Transaksi extends BaseController
                 $name = 'formatreport.txt';
                 return $this->response->download($name, $data);
                 return redirect()->back();
-            }
-            else
-            {
+            } else {
                 echo "kasi tanggal dong";
             }
-        }
-        else
-        {
+        } else {
             echo "belum ada method post gan";
-        }   
+        }
     }
 
-    function changeStatus()
+    function changeStatus($trx_id)
     {
         $lomgin = $this->session->get('lomgin');
+        $status = $this->request->getVar('status');
 
         $ubahStatus = new stdClass();
-        $ubahStatus->trx_id = intval($this->request->getVar('id'));
+        $ubahStatus->trx_id = intval($trx_id);
         $ubahStatus->amount = intval($this->request->getVar('amount'));
 
-        dd($ubahStatus);
+        // dd($trx_id, $status, $ubahStatus->amount);
 
         // $ubahStatus->status = 'reject';
 
-        $url = 'http://128.199.78.209:3000/api/admin/payment_reject';
+        $url = 'http://128.199.78.209:3000/api/admin/payment_' . $status;
+        // dd($url);
         $token = $lomgin;
         $options = array('http' => array(
             'method'  => 'POST',
@@ -116,6 +112,7 @@ class Transaksi extends BaseController
         $context  = stream_context_create($options);
         $response = json_decode(file_get_contents($url, false, $context));
 
-        dd($response);
+        // dd($response);
+        return redirect()->back();
     }
 }
