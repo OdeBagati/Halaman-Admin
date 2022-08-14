@@ -13,7 +13,7 @@ class Transaksi extends BaseController
         $lomgin = $this->session->get('lomgin');
 
         if ($lomgin != null) {
-            $url = 'http://128.199.78.209:3000/api/userdata/transaction_history';
+            $url = 'http://128.199.78.209:3000/api/admin/transaction_all/1';
             $token = $lomgin;
             $options = array('http' => array(
                 'method'  => 'GET',
