@@ -62,9 +62,9 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php foreach ($response as $key => $transaksi) : ?>
+                        <?php foreach ($dataTransaksi as $key => $transaksi) : ?>
                             <tr>
-                                <td><?= $transaksi->ts; ?></td>
+                                <td><?= (string)$transaksi->ts; ?></td>
                                 <td><?= $transaksi->trx_type; ?></td>
                                 <td><?= $transaksi->trx_id; ?></td>
                                 <td><?= $transaksi->product_code; ?></td>
