@@ -1,3 +1,13 @@
+<style>
+    #satu_bulan{
+        display: none;
+    }
+
+    #satu_hari{
+        display: none;
+    }
+</style>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -6,32 +16,47 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="row">
-                <div class="col-2 text-left">
-                    <a class="btn btn-primary" href="#"><i class="fa fa-refresh"></i>&nbsp;Rekonsiliasi</a>
-                </div>
+            <div class="container">
+                <div class="row d-flex">
+                    <div class="co-lg-2">
+                        <a class="btn btn-primary" href="#"><i class="fa fa-refresh"></i>&nbsp;Rekonsiliasi</a>
+                    </div>
 
-                <div class="col-8">
-                    <form action="<?= base_url('transaksi/download'); ?>" method="post">
+                    <div class="col-lg-10 pl-5">
                         <div class="row">
-                            <div class="col-4">
-                                <?= csrf_field(); ?>
-                                <select class="form-control custom-select">
-                                    <option selected="selected" disabled>Download for</option>
-                                    <option value="1">one month</option>
-                                    <option value="2">one day</option>
+                            <div class="col-lg-3">
+                                <select name="pilihan_download" id="pil_donlot" class="form-control" onchange="getForm()">
+                                    <option selected disabled>Download for</option>
+                                    <option value="day">One Day</option>
+                                    <option value="month">One Month</option>
                                 </select>
                             </div>
-                            <div class="col-3">
-                                <input type="date" name="date" class="form-control">
-                            </div>
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-primary">Download</button>
+                            <div class="col-lg-8">
+                                <form action="<?= base_url('transaksi/download-tanggal'); ?>" method="post" id="satu_hari">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <input type="date" name="date" class="form-control">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button type="submit" class="btn btn-primary">Download</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <form action="<?= base_url('transaksi/download-bulan'); ?>" method="post" id="satu_bulan">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <input type="month" name="month" class="form-control" >
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button type="submit" class="btn btn-primary">Download</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-
             </div>
         </div>
         <div class="card-body">
@@ -64,8 +89,8 @@
                     <tbody>
                         <?php foreach ($dataTransaksi as $key => $transaksi) : ?>
                             <tr>
-                                <td><?= (string)$transaksi->ts; ?></td>
-                                <td><?= $transaksi->trx_type; ?></td>
+                                <td><?= date('d-m-Y H:i:s',strtotime($transaksi->ts)); ?></td>
+                                <td><p style="text-transform: uppercase;"><?= str_replace("_"," ",$transaksi->trx_type); ?></p></td>
                                 <td><?= $transaksi->trx_id; ?></td>
                                 <td><?= $transaksi->product_code; ?></td>
                                 <td>Rp. <?= number_format($transaksi->amount, 0, ',', '.'); ?></td>
@@ -77,7 +102,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <?php if ($transaksi->status == 'rejected') : ?>
+                                    <?php if ($transaksi->status == 'rejected' || $transaksi->status == 'failed') : ?>
                                         <span class="badge badge-danger"><?= $transaksi->status; ?></span>
                                     <?php elseif ($transaksi->status == 'unpaid') : ?>
                                         <span class="badge badge-warning"><?= $transaksi->status; ?></span>
@@ -85,7 +110,7 @@
                                         <span class="badge badge-success"><?= $transaksi->status; ?></span>
                                     <?php endif; ?>
                                 </td>
-                                <?php if ($transaksi->status != 'rejected' && $transaksi->status != 'done') : ?>
+                                <?php if ($transaksi->status != 'rejected' && $transaksi->status != 'done' && $transaksi->status != 'failed') : ?>
                                     <td>
                                         <form action="changeStatus/<?= $transaksi->trx_id; ?>" id="ubahStatus" method="post">
                                             <?= csrf_field(); ?>
@@ -145,3 +170,20 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<script>
+    function getForm() {
+        var pilihan = document.getElementById("pil_donlot").value;
+        var download = {"bulan":document.getElementById("satu_bulan"),"hari":document.getElementById("satu_hari")}
+
+        // console.log(pilihan);
+        // console.log(pilihan=="day");
+        if (pilihan == "month") {
+            download.bulan.style.display = "block";
+            download.hari.style.display = "none";  
+        } else {
+            download.bulan.style.display = "none";
+            download.hari.style.display = "block";
+        }
+    }
+</script>

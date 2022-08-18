@@ -42,7 +42,8 @@ $routes->get('/register', 'Register::register');
 // Transaksi
 $routes->get('/delSession', 'Transaksi::delete');
 $routes->get('/transaksi', 'Transaksi::index');
-$routes->post('/transaksi/download', 'Transaksi::download');
+$routes->post('/transaksi/download-tanggal', 'Transaksi::download');
+$routes->post('/transaksi/download-bulan', 'Transaksi::monthDownload');
 $routes->post('/changeStatus/(:num)', 'Transaksi::changeStatus/$1');
 
 // Login
