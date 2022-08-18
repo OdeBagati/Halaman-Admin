@@ -45,7 +45,7 @@ class Transaksi extends BaseController
                 'date' => [
                     'rules' => 'required',
                     'errors' => [
-                        'required'  => 'Order date is required'
+                        'required'  => 'Date is required'
                     ]
                 ]
             ];
@@ -80,6 +80,63 @@ class Transaksi extends BaseController
             }
         } else {
             echo "belum ada method post gan";
+        }
+    }
+
+    function monthDownload()
+    {
+        $lomgin = $this->session->get('lomgin');
+
+        if ($this->request->getMethod('post')) {
+            $rules = [
+                'month' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required'  => 'Month is required'
+                    ]
+                ]
+            ];
+
+            if($this->validate($rules))
+            {
+                $monthSelected = $this->request->getPost('month');
+                $pilihanbulan  = str_replace("-","/",$monthSelected);
+
+                $url = "http://128.199.78.209:3000/api/admin/transaction_month/$pilihanbulan/1";
+                $token = $lomgin;
+
+                $options = array('http' => array(
+                    'method'  => 'GET',
+                    'header' => 'Authorization: Bearer ' . $token
+                ));
+                $context  = stream_context_create($options);
+                $response = json_decode(file_get_contents($url, false, $context));
+                $hasil    = $response->data;
+
+                // dd($hasil);
+
+                $data = 'Tanggal Trx' . ' | ' . 'Trx Id' . ' | ' . "BillerId" . ' | ' . 'Period' . ' | ' . 'Biller' . ' | ' . 'Amount' . ' | ' . 'Penalty' . ' | ' . 'Total Amount' . ' | ' . 'Fee' . ' | ' . 'Total Bayar' . ' | ' . "\n";
+                foreach ($hasil as $trx_list => $transaksi) {
+                    // dd($transaksi->data);
+                    $jsonData = json_decode($transaksi->data);
+                    // dd($jsonData->pricing);
+                    $harga = $jsonData->pricing;
+                    $data .=  $transaksi->ts . ' | ' . $transaksi->trx_id . ' | ' . $transaksi->product_code . ' | ' . '    -   ' . ' | ' . $transaksi->trx_type . ' | ' . $jsonData->pricing->price . ' | ' . '    -   ' . ' | ' . $jsonData->pricing->price . ' | ' . '   -   ' . ' | ' . $transaksi->amount . ' | ' . "\n";
+                }
+
+                // $data = 'Here is some text!';
+                $name = 'formatreport.txt';
+                return $this->response->download($name, $data);
+                return redirect()->back();
+            }
+            else
+            {
+                echo "pilih bulan dong!";
+            }
+        }
+        else
+        {
+            echo "gaada post gan!";
         }
     }
 
