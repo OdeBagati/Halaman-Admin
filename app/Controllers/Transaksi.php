@@ -182,11 +182,13 @@ class Transaksi extends BaseController
             ));
             $context  = stream_context_create($options);
             $data['response'] = json_decode(file_get_contents($url, false, $context));
-            $data['dataTransaksi'] = $data['response']->data;
-            $data['page']  = 'test_table';
+            $data['dataTransaksi'] = json_decode($data['response']->data);
+            $data['dataDetail'] = $data['dataTransaksi']->detail;
+            $data['dataHarga'] = $data['dataTransaksi']->pricing;
+            $data['page']  = 'detail_transaksi';
             $data['title']  = 'Halaman Transaksi';
 
-            dd($data['response']);
+            return view('admin',$data);
         } else {
             return redirect()->to('login');
         }
