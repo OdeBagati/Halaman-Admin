@@ -82,19 +82,19 @@
                             </tr>
                             <tr>
                                 <td><b>Period</b></td>
-                                <td><?= $dataDetail->period; ?>></td>
+                                <td><?= $dataDetail[0]->period; ?>></td>
                             </tr>
                             <tr>
                                 <td><b>Jumlah</b></td>
-                                <td><?= $dataDetail->amount; ?></td>
+                                <td><?= $dataDetail[0]->amount; ?></td>
                             </tr>
                             <tr>
                                 <td><b>Kubik</b></td>
-                                <td><?= $dataDetail->cubic; ?></td>
+                                <td><?= $dataDetail[0]->cubic; ?></td>
                             </tr>
                             <tr>
                                 <td><b>Pinalti</b></td>
-                                <td><?= $dataDetail->penalty; ?></td>
+                                <td><?= $dataDetail[0]->penalty; ?></td>
                             </tr>
                             <tr>    
                                 <td><b>Fee Admin</b></td>
@@ -102,7 +102,7 @@
                             </tr>
                             <tr>
                                 <td><b>ID Verifikasi</b></td>
-                                <td><?= $dataJarga->verification_digit; ?></td>
+                                <td><?= $dataHarga->verification_digit; ?></td>
                             </tr>
                             <tr>
                                 <td><b>Kode Struk</b></td>
