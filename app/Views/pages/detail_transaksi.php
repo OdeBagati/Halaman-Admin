@@ -15,7 +15,7 @@
                                 <td><?= $response->account; ?></td>
                             </tr>
                             <tr>
-                                <td><b>Channel</b></td>
+                                <td><b>Username</b></td>
                                 <td><?= $response->username; ?></td>
                             </tr>
                         </table>
@@ -77,12 +77,8 @@
                                 <td><?= $dataTransaksi->cust_name; ?></td>
                             </tr>
                             <tr>
-                                <td><b>Repeat</b></td>
-                                <td><?= $dataTransaksi->repeat; ?></td>
-                            </tr>
-                            <tr>
                                 <td><b>Period</b></td>
-                                <td><?= $dataDetail[0]->period; ?>></td>
+                                <td><?= str_replace("-"," ",date('m-Y',strtotime($dataDetail[0]->period))); ?></td>
                             </tr>
                             <tr>
                                 <td><b>Jumlah</b></td>
@@ -101,7 +97,7 @@
                                 <td><?= $dataHarga->admin_fee; ?></td>
                             </tr>
                             <tr>
-                                <td><b>ID Verifikasi</b></td>
+                                <td><b>No. Unik Pembayaran</b></td>
                                 <td><?= $dataHarga->verification_digit; ?></td>
                             </tr>
                             <tr>
