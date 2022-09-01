@@ -90,14 +90,14 @@
                         <?php foreach ($dataTransaksi as $key => $transaksi) : ?>
                             <tr>
                                 <td><?= date('d-m-Y H:i:s',strtotime($transaksi->ts)); ?></td>
-                                <td><p style="text-transform: uppercase;"><?= str_replace("_"," ",$transaksi->trx_type); ?></p></td>
+                                <td><?= strtoupper(str_replace("_"," ",$transaksi->trx_type)); ?></td>
                                 <td><?= $transaksi->trx_id; ?></td>
                                 <td><?= $transaksi->product_code; ?></td>
                                 <td>Rp. <?= number_format($transaksi->amount, 0, ',', '.'); ?></td>
                                 <td>
                                     <div class="row">
                                         <div class="col-12">
-                                            <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-fw fa-eye"></i> Detail</a>
+                                            <a class="btn btn-info btn-sm" href="<?= base_url(); ?>/detail-transaksi/<?= $transaksi->trx_id; ?>"><i class="fas fa-fw fa-eye"></i> Detail</a>
                                         </div>
                                     </div>
                                 </td>
@@ -130,44 +130,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script type="text/javascript">
-        function changeStatus(id, amount) {
-            console.log(id);
-            $.ajax({
-                type: "POST", //type of method
-                url: "changeStatus", //your page
-                data: {
-                    id: id,
-                    amount: amount
-                }, // passing the values
-                success: function(res) {
-                    //do what you want here...
-                }
-            });
-            $('form#ubahStatus').submit();
-        }
-    </script>
-
 </div>
 <!-- /.container-fluid -->
 
@@ -176,8 +138,6 @@
         var pilihan = document.getElementById("pil_donlot").value;
         var download = {"bulan":document.getElementById("satu_bulan"),"hari":document.getElementById("satu_hari")}
 
-        // console.log(pilihan);
-        // console.log(pilihan=="day");
         if (pilihan == "month") {
             download.bulan.style.display = "block";
             download.hari.style.display = "none";  
