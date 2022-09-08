@@ -5,7 +5,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; PT Mencari Tukang Koding 2022</span>
+                        <span>Copyright &copy; Joyfulbali.com</span>
                     </div>
                 </div>
             </footer>
