@@ -183,12 +183,38 @@ class Transaksi extends BaseController
             $context  = stream_context_create($options);
             $data['response'] = json_decode(file_get_contents($url, false, $context));
             $data['dataTransaksi'] = json_decode($data['response']->data);
-            $data['dataDetail'] = $data['dataTransaksi']->detail;
-            $data['dataHarga'] = $data['dataTransaksi']->pricing;
-            $data['page']  = 'detail_transaksi';
-            $data['title']  = 'Halaman Transaksi';
 
-            return view('admin',$data);
+            // dd($data['dataTransaksi']);
+            // $data['dataDetail'] = $data['dataTransaksi']->detail;
+
+            if(property_exists($data['dataTransaksi'],'detail'))
+            {
+                $data['dataDetail'] = $data['dataTransaksi']->detail;
+                $data['dataHarga'] = $data['dataTransaksi']->pricing;
+                $data['page']  = 'detail_transaksi';
+                $data['title']  = 'Halaman Transaksi';
+
+                return view('admin',$data);
+            }
+            else
+            {
+               if(property_exists($data['dataTransaksi'],'receipt_code'))
+               {
+                    $data['dataHarga'] = $data['dataTransaksi']->pricing;
+                    $data['page']  = 'detail_transaksi_no_detail';
+                    $data['title']  = 'Halaman Transaksi';
+
+                    return view('admin',$data);
+               }
+               else
+               {
+                    $data['dataHarga'] = $data['dataTransaksi']->pricing;
+                    $data['page']  = 'detail_transaksi_no_detail_no_receipt';
+                    $data['title']  = 'Halaman Transaksi';
+                    
+                    return view('admin',$data);
+               }
+            }
         } else {
             return redirect()->to('login');
         }
