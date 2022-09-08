@@ -71,7 +71,6 @@ class Transaksi extends BaseController
                     $data .=  $transaksi->ts . ' | ' . $transaksi->trx_id . ' | ' . $transaksi->product_code . ' | ' . '    -   ' . ' | ' . $transaksi->trx_type . ' | ' . $jsonData->pricing->price . ' | ' . '    -   ' . ' | ' . $jsonData->pricing->price . ' | ' . '   -   ' . ' | ' . $transaksi->amount . ' | ' . "\n";
                 }
 
-                // $data = 'Here is some text!';
                 $name = 'formatreport.txt';
                 return $this->response->download($name, $data);
                 return redirect()->back();
@@ -113,15 +112,12 @@ class Transaksi extends BaseController
                 $response = json_decode(file_get_contents($url, false, $context));
                 $hasil    = $response->data;
 
-                // dd($hasil);
-
                 $data = 'Tanggal Trx' . ' | ' . 'Trx Id' . ' | ' . "BillerId" . ' | ' . 'Period' . ' | ' . 'Biller' . ' | ' . 'Amount' . ' | ' . 'Penalty' . ' | ' . 'Total Amount' . ' | ' . 'Fee' . ' | ' . 'Total Bayar' . ' | ' . "\n";
                 foreach ($hasil as $trx_list => $transaksi) {
                     $jsonData = json_decode($transaksi->data);
                     $data .=  $transaksi->ts . ' | ' . $transaksi->trx_id . ' | ' . $transaksi->product_code . ' | ' . '    -   ' . ' | ' . $transaksi->trx_type . ' | ' . $jsonData->pricing->price . ' | ' . '    -   ' . ' | ' . $jsonData->pricing->price . ' | ' . '   -   ' . ' | ' . $transaksi->amount . ' | ' . "\n";
                 }
 
-                // $data = 'Here is some text!';
                 $name = 'formatreport.txt';
                 return $this->response->download($name, $data);
                 return redirect()->back();
@@ -145,10 +141,6 @@ class Transaksi extends BaseController
         $ubahStatus = new stdClass();
         $ubahStatus->trx_id = intval($trx_id);
         $ubahStatus->amount = intval($this->request->getVar('amount'));
-
-        // dd($trx_id, $status, $ubahStatus->amount);
-
-        // $ubahStatus->status = 'reject';
 
         $url = 'http://128.199.78.209:3000/api/admin/payment_' . $status;
         // dd($url);
@@ -183,9 +175,6 @@ class Transaksi extends BaseController
             $context  = stream_context_create($options);
             $data['response'] = json_decode(file_get_contents($url, false, $context));
             $data['dataTransaksi'] = json_decode($data['response']->data);
-
-            // dd($data['dataTransaksi']);
-            // $data['dataDetail'] = $data['dataTransaksi']->detail;
 
             if(property_exists($data['dataTransaksi'],'detail'))
             {
