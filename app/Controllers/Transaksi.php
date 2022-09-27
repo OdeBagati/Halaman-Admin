@@ -13,7 +13,7 @@ class Transaksi extends BaseController
         $lomgin = $this->session->get('lomgin');
 
         if ($lomgin != null) {
-            $url = 'http://128.199.78.209:3000/api/admin/transaction_all/1';
+            $url = 'http://128.199.131.109:3000/api/admin/transaction_all/1';
             $token = $lomgin;
             $options = array('http' => array(
                 'method'  => 'GET',
@@ -53,7 +53,7 @@ class Transaksi extends BaseController
             if ($this->validate($rules)) {
                 $dateSelected = $this->request->getPost('date');
 
-                $url = 'http://128.199.78.209:3000/api/admin/transaction_date_no_paging/' . $dateSelected;
+                $url = 'http://128.199.131.109:3000/api/admin/transaction_date_no_paging/' . $dateSelected;
                 // $url = 'http://128.199.78.209:3000/api/admin/transaction_date_no_paging/2022-07-21';
                 // $url = 'http://128.199.131.109:3000/api/userdata/transaction_history';
                 $token = $lomgin;
@@ -101,7 +101,7 @@ class Transaksi extends BaseController
                 $monthSelected = $this->request->getPost('month');
                 $pilihanbulan  = str_replace("-","/",$monthSelected);
 
-                $url = "http://128.199.78.209:3000/api/admin/transaction_month/$pilihanbulan/1";
+                $url = "http://128.199.131.109:3000/api/admin/transaction_month/$pilihanbulan/1";
                 $token = $lomgin;
 
                 $options = array('http' => array(
@@ -142,7 +142,7 @@ class Transaksi extends BaseController
         $ubahStatus->trx_id = intval($trx_id);
         $ubahStatus->amount = intval($this->request->getVar('amount'));
 
-        $url = 'http://128.199.78.209:3000/api/admin/payment_' . $status;
+        $url = 'http://128.199.131.109:3000/api/admin/payment_' . $status;
         // dd($url);
         $token = $lomgin;
         $options = array('http' => array(
@@ -166,7 +166,7 @@ class Transaksi extends BaseController
         $lomgin = $this->session->get('lomgin');
 
         if ($lomgin != null) {
-            $url = 'http://128.199.78.209:3000/api/payment/status/'.$trx_id;
+            $url = 'http://128.199.131.109:3000/api/payment/status/'.$trx_id;
             $token = $lomgin;
             $options = array('http' => array(
                 'method'  => 'GET',
