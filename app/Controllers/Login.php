@@ -21,7 +21,7 @@ class Login extends BaseController
     public function loginAuth()
     {
         // API for login
-        $url = 'http://128.199.78.209:3000/api/user/login';
+        $url = 'http://128.199.131.109:3000/api/user/login';
 
         $kelas = new stdClass();
         $kelas->username = $this->request->getVar('username');
