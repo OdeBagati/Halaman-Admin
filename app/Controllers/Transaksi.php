@@ -8,12 +8,17 @@ use DateTime;
 
 class Transaksi extends BaseController
 {
+    function __construct()
+    {
+        helper('cookie');
+    }
+
     public function index()
     {
-        $lomgin = $this->session->get('lomgin');
+        $lomgin=get_cookie('login');
 
         if ($lomgin != null) {
-            $url = 'http://128.199.78.209:3000/api/admin/transaction_all/1';
+            $url = 'http://128.199.131.109:3000/api/admin/transaction_all/1';
             $token = $lomgin;
             $options = array('http' => array(
                 'method'  => 'GET',
@@ -31,14 +36,9 @@ class Transaksi extends BaseController
         }
     }
 
-    function delete()
-    {
-        $this->session->remove('lomgin');
-    }
-
     function download()
     {
-        $lomgin = $this->session->get('lomgin');
+        $lomgin=get_cookie('login');
 
         if ($this->request->getMethod('post')) {
             $rules = [
@@ -53,7 +53,7 @@ class Transaksi extends BaseController
             if ($this->validate($rules)) {
                 $dateSelected = $this->request->getPost('date');
 
-                $url = 'http://128.199.78.209:3000/api/admin/transaction_date_no_paging/' . $dateSelected;
+                $url = 'http://128.199.131.109:3000/api/admin/transaction_date_no_paging/' . $dateSelected;
                 // $url = 'http://128.199.78.209:3000/api/admin/transaction_date_no_paging/2022-07-21';
                 // $url = 'http://128.199.131.109:3000/api/userdata/transaction_history';
                 $token = $lomgin;
@@ -71,7 +71,6 @@ class Transaksi extends BaseController
                     $data .=  $transaksi->ts . ' | ' . $transaksi->trx_id . ' | ' . $transaksi->product_code . ' | ' . '    -   ' . ' | ' . $transaksi->trx_type . ' | ' . $jsonData->pricing->price . ' | ' . '    -   ' . ' | ' . $jsonData->pricing->price . ' | ' . '   -   ' . ' | ' . $transaksi->amount . ' | ' . "\n";
                 }
 
-                // $data = 'Here is some text!';
                 $name = 'formatreport.txt';
                 return $this->response->download($name, $data);
                 return redirect()->back();
@@ -85,7 +84,7 @@ class Transaksi extends BaseController
 
     function monthDownload()
     {
-        $lomgin = $this->session->get('lomgin');
+        $lomgin=get_cookie('login');
 
         if ($this->request->getMethod('post')) {
             $rules = [
@@ -102,7 +101,7 @@ class Transaksi extends BaseController
                 $monthSelected = $this->request->getPost('month');
                 $pilihanbulan  = str_replace("-","/",$monthSelected);
 
-                $url = "http://128.199.78.209:3000/api/admin/transaction_month/$pilihanbulan/1";
+                $url = "http://128.199.131.109:3000/api/admin/transaction_month/$pilihanbulan/1";
                 $token = $lomgin;
 
                 $options = array('http' => array(
@@ -113,15 +112,12 @@ class Transaksi extends BaseController
                 $response = json_decode(file_get_contents($url, false, $context));
                 $hasil    = $response->data;
 
-                // dd($hasil);
-
                 $data = 'Tanggal Trx' . ' | ' . 'Trx Id' . ' | ' . "BillerId" . ' | ' . 'Period' . ' | ' . 'Biller' . ' | ' . 'Amount' . ' | ' . 'Penalty' . ' | ' . 'Total Amount' . ' | ' . 'Fee' . ' | ' . 'Total Bayar' . ' | ' . "\n";
                 foreach ($hasil as $trx_list => $transaksi) {
                     $jsonData = json_decode($transaksi->data);
                     $data .=  $transaksi->ts . ' | ' . $transaksi->trx_id . ' | ' . $transaksi->product_code . ' | ' . '    -   ' . ' | ' . $transaksi->trx_type . ' | ' . $jsonData->pricing->price . ' | ' . '    -   ' . ' | ' . $jsonData->pricing->price . ' | ' . '   -   ' . ' | ' . $transaksi->amount . ' | ' . "\n";
                 }
 
-                // $data = 'Here is some text!';
                 $name = 'formatreport.txt';
                 return $this->response->download($name, $data);
                 return redirect()->back();
@@ -146,11 +142,7 @@ class Transaksi extends BaseController
         $ubahStatus->trx_id = intval($trx_id);
         $ubahStatus->amount = intval($this->request->getVar('amount'));
 
-        // dd($trx_id, $status, $ubahStatus->amount);
-
-        // $ubahStatus->status = 'reject';
-
-        $url = 'http://128.199.78.209:3000/api/admin/payment_' . $status;
+        $url = 'http://128.199.131.109:3000/api/admin/payment_' . $status;
         // dd($url);
         $token = $lomgin;
         $options = array('http' => array(
@@ -171,10 +163,10 @@ class Transaksi extends BaseController
 
     function detail($trx_id)
     {
-        $lomgin = $this->session->get('lomgin');
+        $lomgin=get_cookie('login');
 
         if ($lomgin != null) {
-            $url = 'http://128.199.78.209:3000/api/payment/status/'.$trx_id;
+            $url = 'http://128.199.131.109:3000/api/payment/status/'.$trx_id;
             $token = $lomgin;
             $options = array('http' => array(
                 'method'  => 'GET',
@@ -183,9 +175,6 @@ class Transaksi extends BaseController
             $context  = stream_context_create($options);
             $data['response'] = json_decode(file_get_contents($url, false, $context));
             $data['dataTransaksi'] = json_decode($data['response']->data);
-
-            // dd($data['dataTransaksi']);
-            // $data['dataDetail'] = $data['dataTransaksi']->detail;
 
             if(property_exists($data['dataTransaksi'],'detail'))
             {
