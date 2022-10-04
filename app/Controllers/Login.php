@@ -20,21 +20,16 @@ class Login extends BaseController
 
     public function loginAuth()
     {
-        // API for login
-        $url = 'http://128.199.131.109:3000/api/user/login';
-
-        $kelas = new stdClass();
-        $kelas->username = $this->request->getVar('username');
-        $kelas->password = $this->request->getVar('password');
-
-        if ($kelas->username != 'aaz47' || $kelas->password != 'contohdoang')
+        try
         {
-            $this->session->setFlashData('error', 'invalid username or password');
-
-            return view('login/login');
-        }
-        else
-        {
+            // API for login
+            $url = 'http://128.199.131.109:3000/api/user/login';
+            // $url = 'http://128.199.78.209:3000/api/user/login';
+        
+            $kelas = new stdClass();
+            $kelas->username = $this->request->getVar('username');
+            $kelas->password = $this->request->getVar('password');
+        
             $options = array('http' => array(
                 'method'  => 'POST',
                 'header' => array(
@@ -71,19 +66,13 @@ class Login extends BaseController
             else
             {
                 return redirect()->to('login');
-                
             }
-
-            // $cookieData = $this->response->getCookie('login');
-            // echo $cookie->getValue();
-            // if ($cookieData->getValue() != null) {
-            //     $this->session->set('lomgin', $cookie->getValue());
-
-            //     return redirect()->setCookie($cookie)->to(base_url('/'));
-            // } else {
-            //     // return redirect()->to('login');
-            //     echo 'gagal';
-            // }
+        }
+        catch(\Throwable $th)
+        {
+            $this->session->setFlashData('error', 'invalid username or password');
+        
+            return view('login/login');
         }
     }
 
