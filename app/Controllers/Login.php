@@ -5,9 +5,6 @@ namespace App\Controllers;
 use stdClass;
 use CodeIgniter\Cookie\Cookie;
 use DateTime;
-use Kint\Zval\Value;
-
-use function PHPUnit\Framework\isNull;
 
 class Login extends BaseController
 {
@@ -23,22 +20,16 @@ class Login extends BaseController
 
     public function loginAuth()
     {
-        // API login disini
-        $url = 'http://128.199.78.209:3000/api/user/login';
-
-        $kelas = new stdClass();
-        $kelas->username = $this->request->getVar('username');
-        $kelas->password = $this->request->getVar('password');
-
-        if($kelas->username!='aaz47' && $kelas->password!='contohdoang')
+        try
         {
-            $this->session->setFlashData('error','invalid username or password');
-
-            return view('login/login');
-        }
-        else
-        {
-            $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhejQ3Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE2NTc5NzMzNTh9.K1Zgec8GHp_R0p_kELdLf_wDCbUaolsJuIVH_yKZJEQ";
+            // API for login
+            $url = 'http://128.199.131.109:3000/api/user/login';
+            // $url = 'http://128.199.78.209:3000/api/user/login';
+        
+            $kelas = new stdClass();
+            $kelas->username = $this->request->getVar('username');
+            $kelas->password = $this->request->getVar('password');
+        
             $options = array('http' => array(
                 'method'  => 'POST',
                 'header' => array(
@@ -49,7 +40,6 @@ class Login extends BaseController
             ));
             $context  = stream_context_create($options);
 
-            // dd(file_get_contents($url, false, $context));
             $ingfo = file_get_contents($url, false, $context);
 
             // helper('cookie');
@@ -67,37 +57,30 @@ class Login extends BaseController
                     'samesite' => Cookie::SAMESITE_LAX,
                 ]
             );
-            $this->response->setCookie('login',$cookie);
+            $this->response->setCookie('login', $cookie);
 
-            $cookieData = $this->response->getCookie('login');
-            // dd($cookieData->getValue());
-            // echo $cookieData->getValue() == null;
-            if ($cookieData->getValue() != null) {
-                $this->session->set('lomgin',$cookieData->getValue());
+            if ($cookie->getValue() != null)
+            {
                 return redirect()->setCookie($cookie)->to(base_url('/'));
-            } else {
-                // return redirect()->to(base_url('/'));
+            }
+            else
+            {
                 return redirect()->to('login');
             }
         }
+        catch(\Throwable $th)
+        {
+            $this->session->setFlashData('error', 'invalid username or password');
+        
+            return view('login/login');
+        }
+    }
 
+    public function logout()
+    {
+        helper('cookie');
+        delete_cookie('login');
 
-        // if(is_null($this->response->getCookie('login')))
-        // {
-        //     echo 'gbs';
-        // }
-        // else
-        // {
-        //     echo "bs";
-        // }
-
-        // return redirect()->to(base_url());
-
-        // Validasi login disini
-
-        // $username = $this->request->getVar("username");
-        // $password = md5($this->request->getVar("password"));
-
-        // dd($username, $password);
+        return view('login/login');
     }
 }
