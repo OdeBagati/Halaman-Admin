@@ -40,7 +40,6 @@ $routes->get('/', 'Dashboard::index');
 $routes->get('/register', 'Register::register');
 
 // Transaksi
-$routes->get('/delSession', 'Transaksi::delete');
 $routes->get('/transaksi', 'Transaksi::index');
 $routes->get('/detail-transaksi/(:num)','Transaksi::detail/$1');
 $routes->post('/transaksi/download-tanggal', 'Transaksi::download');
@@ -50,8 +49,7 @@ $routes->post('/changeStatus/(:num)', 'Transaksi::changeStatus/$1');
 // Login
 $routes->get('/login', 'Login::login');
 $routes->post('/loginauth', 'Login::loginAuth');
-
-
+$routes->get('/logout','Login::logout');
 
 /*
  * --------------------------------------------------------------------

@@ -27,11 +27,14 @@ class Login extends BaseController
         $kelas->username = $this->request->getVar('username');
         $kelas->password = $this->request->getVar('password');
 
-        if ($kelas->username != 'aaz47' || $kelas->password != 'contohdoang') {
+        if ($kelas->username != 'aaz47' || $kelas->password != 'contohdoang')
+        {
             $this->session->setFlashData('error', 'invalid username or password');
 
             return view('login/login');
-        } else {
+        }
+        else
+        {
             $options = array('http' => array(
                 'method'  => 'POST',
                 'header' => array(
@@ -61,13 +64,34 @@ class Login extends BaseController
             );
             $this->response->setCookie('login', $cookie);
 
-            $cookieData = $this->response->getCookie('login');
-            if ($cookieData->getValue() != null) {
-                $this->session->set('lomgin', $cookie->getValue());
+            if ($cookie->getValue() != null)
+            {
                 return redirect()->setCookie($cookie)->to(base_url('/'));
-            } else {
-                return redirect()->to('login');
             }
+            else
+            {
+                return redirect()->to('login');
+                
+            }
+
+            // $cookieData = $this->response->getCookie('login');
+            // echo $cookie->getValue();
+            // if ($cookieData->getValue() != null) {
+            //     $this->session->set('lomgin', $cookie->getValue());
+
+            //     return redirect()->setCookie($cookie)->to(base_url('/'));
+            // } else {
+            //     // return redirect()->to('login');
+            //     echo 'gagal';
+            // }
         }
+    }
+
+    public function logout()
+    {
+        helper('cookie');
+        delete_cookie('login');
+
+        return view('login/login');
     }
 }

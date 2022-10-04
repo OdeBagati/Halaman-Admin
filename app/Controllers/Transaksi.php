@@ -8,9 +8,14 @@ use DateTime;
 
 class Transaksi extends BaseController
 {
+    function __construct()
+    {
+        helper('cookie');
+    }
+
     public function index()
     {
-        $lomgin = $this->session->get('lomgin');
+        $lomgin=get_cookie('login');
 
         if ($lomgin != null) {
             $url = 'http://128.199.131.109:3000/api/admin/transaction_all/1';
@@ -31,14 +36,9 @@ class Transaksi extends BaseController
         }
     }
 
-    function delete()
-    {
-        $this->session->remove('lomgin');
-    }
-
     function download()
     {
-        $lomgin = $this->session->get('lomgin');
+        $lomgin=get_cookie('login');
 
         if ($this->request->getMethod('post')) {
             $rules = [
@@ -84,7 +84,7 @@ class Transaksi extends BaseController
 
     function monthDownload()
     {
-        $lomgin = $this->session->get('lomgin');
+        $lomgin=get_cookie('login');
 
         if ($this->request->getMethod('post')) {
             $rules = [
@@ -163,7 +163,7 @@ class Transaksi extends BaseController
 
     function detail($trx_id)
     {
-        $lomgin = $this->session->get('lomgin');
+        $lomgin=get_cookie('login');
 
         if ($lomgin != null) {
             $url = 'http://128.199.131.109:3000/api/payment/status/'.$trx_id;
