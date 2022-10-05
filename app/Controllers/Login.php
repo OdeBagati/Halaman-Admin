@@ -56,12 +56,13 @@ class Login extends BaseController
                 ]
             );
             $this->response->setCookie('login', $cookie);
-        
-            $cookieData = $this->response->getCookie('login');
-            if ($cookieData->getValue() != null) {
-                $this->session->set('lomgin', $cookie->getValue());
+
+            if ($cookie->getValue() != null)
+            {
                 return redirect()->setCookie($cookie)->to(base_url('/'));
-            } else {
+            }
+            else
+            {
                 return redirect()->to('login');
             }
         
@@ -71,5 +72,19 @@ class Login extends BaseController
         
             return view('login/login');
         }
+        catch(\Throwable $th)
+        {
+            $this->session->setFlashData('error', 'invalid username or password');
+        
+            return view('login/login');
+        }
+    }
+
+    public function logout()
+    {
+        helper('cookie');
+        delete_cookie('login');
+
+        return view('login/login');
     }
 }
