@@ -20,11 +20,9 @@ class Login extends BaseController
 
     public function loginAuth()
     {
-        try
-        {
+        try {
             // API for login
-            $url = 'http://128.199.131.109:3000/api/user/login';
-            // $url = 'http://128.199.78.209:3000/api/user/login';
+            $url = 'http://128.199.78.209:3000/api/user/login';
         
             $kelas = new stdClass();
             $kelas->username = $this->request->getVar('username');
@@ -39,9 +37,9 @@ class Login extends BaseController
                 'content' => json_encode($kelas)
             ));
             $context  = stream_context_create($options);
-
-            $ingfo = file_get_contents($url, false, $context);
-
+        
+            $ingfo = file_get_contents("http://128.199.78.209:3000/api/user/login", false, $context);
+        
             // helper('cookie');
             $cookie = new Cookie(
                 'login',
@@ -67,6 +65,12 @@ class Login extends BaseController
             {
                 return redirect()->to('login');
             }
+        
+        } catch (\Throwable $th){
+            // dd($th);
+            $this->session->setFlashData('error', 'invalid username or password');
+        
+            return view('login/login');
         }
         catch(\Throwable $th)
         {

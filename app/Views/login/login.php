@@ -53,7 +53,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Login</h1>
                                     </div>
-                                    <form class="user" action="<?= base_url(); ?>/loginauth" method="post">
+                                    <form class="user" action="loginauth" method="post">
                                         <div class="form-group">
                                             <input type="text" name="username" class="form-control form-control-user" id="inputUsername" aria-describedby="usernameHelp" placeholder="Username">
                                         </div>
