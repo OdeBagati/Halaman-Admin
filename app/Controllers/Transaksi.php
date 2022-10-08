@@ -135,13 +135,12 @@ class Transaksi extends BaseController
 
     function changeStatus($trx_id)
     {
-        $lomgin = $this->session->get('lomgin');
+        $lomgin = get_cookie('login');
         $status = $this->request->getVar('status');
 
         $ubahStatus = new stdClass();
         $ubahStatus->trx_id = intval($trx_id);
         $ubahStatus->amount = intval($this->request->getVar('amount'));
-
         $url = 'http://128.199.78.209:3000/api/admin/payment_' . $status;
         // dd($url);
         $token = $lomgin;
