@@ -66,11 +66,6 @@ class Login extends BaseController
                 return redirect()->to('login');
             }
         
-        } catch (\Throwable $th){
-            // dd($th);
-            $this->session->setFlashData('error', 'invalid username or password');
-        
-            return view('login/login');
         }
         catch(\Throwable $th)
         {
