@@ -19,9 +19,10 @@ class Dashboard extends BaseController
         if($lomgin != null)
         {
             $data = [
-                'title' => 'Dashboard'
+                'title' => 'Dashboard',
+                'page' => 'homepage'
             ];
-            return view('dashboard/index', $data);
+            return view('admin', $data);
         }
         else
         {

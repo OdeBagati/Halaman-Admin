@@ -107,7 +107,7 @@
                                 
                                     <?php if ($transaksi->status == 'rejected' || $transaksi->status == 'failed' || $transaksi->status == 'expired') : ?>
                                         <span class="badge badge-danger"><?= $transaksi->status; ?></span>
-                                    <?php elseif ($transaksi->status == 'unpaid') : ?>
+                                    <?php elseif ($transaksi->status == 'unpaid' || $transaksi->status == 'pending') : ?>
                                         <span class="badge badge-warning"><?= $transaksi->status; ?></span>
                                     <?php else : ?>
                                         <span class="badge badge-success"><?= $transaksi->status; ?></span>
