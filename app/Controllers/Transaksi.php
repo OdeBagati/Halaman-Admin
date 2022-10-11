@@ -13,13 +13,32 @@ class Transaksi extends BaseController
         helper('cookie');
     }
 
-    public function index()
+    function test()
+    {
+        $url = 'http://128.199.78.209:3000/api/admin/transaction_all/1';
+        $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNpbmVyZ2lwZXJzYWRhIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE2NjU0OTMzOTZ9.Dk7SYPjot4X_IcJVecrUeIbqCAwb57zYWaVgDvxApcE';
+
+        $options = array('http' => array(
+            'method'  => 'GET',
+            'header' => 'Authorization: Bearer ' . $token
+        ));
+        $context  = stream_context_create($options);
+        $data['response'] = json_decode(file_get_contents($url, false, $context));
+
+        dd($data['response']->total_pages);
+    }
+
+    public function index($page)
     {
         $lomgin=get_cookie('login');
 
-        if ($lomgin != null) {
-            $url = 'http://128.199.131.109:3000/api/admin/transaction_all/1';
+        // dd($lomgin);
+
+        if ($lomgin != null)
+        {
+            $url = 'http://128.199.78.209:3000/api/admin/transaction_all/'.$page;
             $token = $lomgin;
+
             $options = array('http' => array(
                 'method'  => 'GET',
                 'header' => 'Authorization: Bearer ' . $token
@@ -27,11 +46,14 @@ class Transaksi extends BaseController
             $context  = stream_context_create($options);
             $data['response'] = json_decode(file_get_contents($url, false, $context));
             $data['dataTransaksi'] = $data['response']->data;
+            $data['total_pages'] = $data['response']->total_pages;
             $data['page']  = 'test_table';
             $data['title']  = 'Halaman Transaksi';
 
             return view('admin', $data);
-        } else {
+        }
+        else
+        {
             return redirect()->to('login');
         }
     }
@@ -53,7 +75,7 @@ class Transaksi extends BaseController
             if ($this->validate($rules)) {
                 $dateSelected = $this->request->getPost('date');
 
-                $url = 'http://128.199.131.109:3000/api/admin/transaction_date_no_paging/' . $dateSelected;
+                $url = 'http://128.199.78.209:3000/api/admin/transaction_date_no_paging/' . $dateSelected;
                 // $url = 'http://128.199.78.209:3000/api/admin/transaction_date_no_paging/2022-07-21';
                 // $url = 'http://128.199.131.109:3000/api/userdata/transaction_history';
                 $token = $lomgin;
@@ -101,7 +123,7 @@ class Transaksi extends BaseController
                 $monthSelected = $this->request->getPost('month');
                 $pilihanbulan  = str_replace("-","/",$monthSelected);
 
-                $url = "http://128.199.131.109:3000/api/admin/transaction_month/$pilihanbulan/1";
+                $url = "http://128.199.78.209:3000/api/admin/transaction_month/$pilihanbulan/1";
                 $token = $lomgin;
 
                 $options = array('http' => array(
@@ -135,14 +157,13 @@ class Transaksi extends BaseController
 
     function changeStatus($trx_id)
     {
-        $lomgin = $this->session->get('lomgin');
+        $lomgin = get_cookie('login');
         $status = $this->request->getVar('status');
 
         $ubahStatus = new stdClass();
         $ubahStatus->trx_id = intval($trx_id);
         $ubahStatus->amount = intval($this->request->getVar('amount'));
-
-        $url = 'http://128.199.131.109:3000/api/admin/payment_' . $status;
+        $url = 'http://128.199.78.209:3000/api/admin/payment_' . $status;
         // dd($url);
         $token = $lomgin;
         $options = array('http' => array(
@@ -166,7 +187,7 @@ class Transaksi extends BaseController
         $lomgin=get_cookie('login');
 
         if ($lomgin != null) {
-            $url = 'http://128.199.131.109:3000/api/payment/status/'.$trx_id;
+            $url = 'http://128.199.78.209:3000/api/payment/status/'.$trx_id;
             $token = $lomgin;
             $options = array('http' => array(
                 'method'  => 'GET',
