@@ -13,7 +13,22 @@ class Transaksi extends BaseController
         helper('cookie');
     }
 
-    public function index()
+    function test()
+    {
+        $url = 'http://128.199.78.209:3000/api/admin/transaction_all/1';
+        $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNpbmVyZ2lwZXJzYWRhIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE2NjU0OTMzOTZ9.Dk7SYPjot4X_IcJVecrUeIbqCAwb57zYWaVgDvxApcE';
+
+        $options = array('http' => array(
+            'method'  => 'GET',
+            'header' => 'Authorization: Bearer ' . $token
+        ));
+        $context  = stream_context_create($options);
+        $data['response'] = json_decode(file_get_contents($url, false, $context));
+
+        dd($data['response']->total_pages);
+    }
+
+    public function index($page)
     {
         $lomgin=get_cookie('login');
 
@@ -21,7 +36,7 @@ class Transaksi extends BaseController
 
         if ($lomgin != null)
         {
-            $url = 'http://128.199.78.209:3000/api/admin/transaction_all/1';
+            $url = 'http://128.199.78.209:3000/api/admin/transaction_all/'.$page;
             $token = $lomgin;
 
             $options = array('http' => array(
@@ -31,6 +46,14 @@ class Transaksi extends BaseController
             $context  = stream_context_create($options);
             $data['response'] = json_decode(file_get_contents($url, false, $context));
             $data['dataTransaksi'] = $data['response']->data;
+            $data['total_pages'] = $data['response']->total_pages;
+            // $i = 1;
+
+            // for($i=1; $i<=$data['total_pages']; $i++)
+            // {
+            //     echo $i;
+            //     echo '<br>';
+            // }
             $data['page']  = 'test_table';
             $data['title']  = 'Halaman Transaksi';
 

@@ -52,9 +52,11 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/transaksi">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Tabel Transaksi</span></a>
+                <?php
+                    $page = 1;
+                    echo anchor(base_url().'/transaksi'.'/'.$page,'<i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Transaksi</span></a>',array('class'=>'nav-link'));
+                ?>
             </li>
 
             <!-- Divider -->

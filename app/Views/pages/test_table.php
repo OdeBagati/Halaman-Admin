@@ -130,6 +130,29 @@
                     </tbody>
                 </table>
             </div>
+            <div class="row m-4 text-center">
+                <div class="col-12">
+                    <p>Page Transaksi</p>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <?php
+                            $i=1;
+                            for($i=1; $i<=$total_pages; $i++)
+                            { ?>
+                                <li class="page-item"><a class="page-link" href="<?= base_url(); ?>/transaksi/<?= $i; ?>"><?= $i; ?></a></li>
+                                <?php
+                            }
+                            ?>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 

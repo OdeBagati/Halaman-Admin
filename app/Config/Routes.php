@@ -41,6 +41,8 @@ $routes->get('/register', 'Register::register');
 
 // Transaksi
 $routes->get('/transaksi', 'Transaksi::index');
+$routes->get('/transaksi/(:num)', 'Transaksi::index/$1');
+$routes->get('/tzz', 'Transaksi::test');
 $routes->get('/detail-transaksi/(:num)','Transaksi::detail/$1');
 $routes->post('/transaksi/download-tanggal', 'Transaksi::download');
 $routes->post('/transaksi/download-bulan', 'Transaksi::monthDownload');
