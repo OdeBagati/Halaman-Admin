@@ -47,13 +47,6 @@ class Transaksi extends BaseController
             $data['response'] = json_decode(file_get_contents($url, false, $context));
             $data['dataTransaksi'] = $data['response']->data;
             $data['total_pages'] = $data['response']->total_pages;
-            // $i = 1;
-
-            // for($i=1; $i<=$data['total_pages']; $i++)
-            // {
-            //     echo $i;
-            //     echo '<br>';
-            // }
             $data['page']  = 'test_table';
             $data['title']  = 'Halaman Transaksi';
 
