@@ -32,8 +32,6 @@ class Transaksi extends BaseController
     {
         $lomgin=get_cookie('login');
 
-        // dd($lomgin);
-
         if ($lomgin != null)
         {
             $url = 'http://128.199.78.209:3000/api/admin/transaction_all/'.$page;

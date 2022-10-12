@@ -66,6 +66,7 @@
                         <tr>
                             <th>TrxID</th>
                             <th>Tgl. Transaksi</th>
+                            <th>Username</th>
                             <th>Biller</th>
                             <th>Metode Pembayaran</th>
                             <th>Total Bayar</th>
@@ -78,6 +79,7 @@
                         <tr>
                             <th>TrxID</th>
                             <th>Tgl. Transaksi</th>
+                            <th>Username</th>
                             <th>Biller</th>
                             <th>Metode Pembayaran</th>
                             <th>Total Bayar</th>
@@ -91,6 +93,7 @@
                             <tr>
                                 <td><?= $transaksi->trx_id; ?></td>
                                 <td><?= date('d-m-Y H:i:s',strtotime($transaksi->ts)); ?></td>
+                                <td><?= $transaksi->username; ?></td>
                                 <td><?= strtoupper(str_replace("_"," ",$transaksi->trx_type)); ?></td>
                                 <td><?= $transaksi->channel; ?></td>
                                 <td>Rp. <?= number_format($transaksi->amount, 0, ',', '.'); ?></td>
