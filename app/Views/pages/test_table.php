@@ -126,7 +126,7 @@
                                         </form>
                                     </td>
                                 <?php else : ?>
-                                    <td></td>
+                                    <td>No action needed</td>
                                 <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
