@@ -111,11 +111,11 @@ class Transaksi extends BaseController
                 $context  = stream_context_create($options);
                 $response = json_decode(file_get_contents($url, false, $context));
                 $hasil    = $response->data;
-
-                $data = 'Tanggal Trx' . ' | ' . 'Trx Id' . ' | ' . "BillerId" . ' | ' . 'Period' . ' | ' . 'Biller' . ' | ' . 'Amount' . ' | ' . 'Penalty' . ' | ' . 'Total Amount' . ' | ' . 'Fee' . ' | ' . 'Total Bayar' . ' | ' . "\n";
+                // dd($hasil);
+                $data = 'Tanggal Trx' . ' | ' . 'Trx Id' . ' | ' . "Username" . ' | ' . 'Channel' . ' | ' . 'Biller' . ' | ' . 'Amount' . ' | ' . 'Penalty' . ' | ' . 'Total Amount' . ' | ' . 'Fee' . ' | ' . 'Total Bayar' . ' | ' .  'Status' . ' | ' . "\n";
                 foreach ($hasil as $trx_list => $transaksi) {
                     $jsonData = json_decode($transaksi->data);
-                    $data .=  $transaksi->ts . ' | ' . $transaksi->trx_id . ' | ' . $transaksi->product_code . ' | ' . '    -   ' . ' | ' . $transaksi->trx_type . ' | ' . $jsonData->pricing->price . ' | ' . '    -   ' . ' | ' . $jsonData->pricing->price . ' | ' . '   -   ' . ' | ' . $transaksi->amount . ' | ' . "\n";
+                    $data .=  $transaksi->ts . ' | ' . $transaksi->trx_id . ' | ' . $transaksi->username . ' | ' . $transaksi->channel . ' | ' . $transaksi->trx_type . ' | ' . $jsonData->pricing->price . ' | ' . '    -   ' . ' | ' . $jsonData->pricing->price . ' | ' . '   -   ' . ' | ' . $transaksi->amount . ' | ' . $transaksi->status . ' | ' . "\n";
                 }
 
                 $name = 'formatreport.txt';
